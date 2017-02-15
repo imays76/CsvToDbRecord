@@ -8,7 +8,6 @@ namespace CsvToDbRecord
 {
     class Program
     {
-
         static void Main(string[] args)
         {
             CsvToRecord v = new CsvToRecord();

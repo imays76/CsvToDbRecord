@@ -34,32 +34,25 @@ namespace CsvToDbRecord
 
                 foreach (var line in document)
                 {
-                    // 컬럼 추출 후에
-                    var columns = line.Split(',');
-
                     if (lineNum == 0)
                     {
                         // column 이름들만 가져오자.
-                        foreach (var column in columns)
-                        {
-                            columnNames.Add(column);
-                        }
-                        columnNamesWithComma = StringListToCommaString(columnNames);
+                        columnNamesWithComma = line;
                     }
                     else
                     {
                         // column 실제 값들을 얻어와서
+                        var columns = line.Split(',');
                         var columnValues = new List<string>();
-
                         foreach (var column in columns)
                         {
                             columnValues.Add(column);
                         }
 
                         // 쿼리 구문을 만든다.
-                        var valuesWithComma = StringListToCommaString(columnValues);
+                        var valuesWithComma = StringListToCommaString(columnValues, "'");
 
-                        var query = $"insert into {m_tableName} ({columnNamesWithComma}) value ({valuesWithComma}) ";
+                        var query = $"insert into {m_tableName} ({columnNamesWithComma}) values ({valuesWithComma}) ";
 
                         // 쿼리 실행
                         var cmd = new OdbcCommand();
@@ -68,9 +61,9 @@ namespace CsvToDbRecord
                         int n = cmd.ExecuteNonQuery();
                         Debug.Assert(n == 1);
 
-                        lineNum++;
                     }
 
+                    lineNum++;
                 }
             }
             catch (Exception e)
@@ -80,12 +73,12 @@ namespace CsvToDbRecord
         }
 
         // [a,b,c] => "a,b,c"
-        static string StringListToCommaString(List<string> stringList)
+        static string StringListToCommaString(List<string> stringList,string wrapCharacter)
         {
             string ret = "";
             foreach (var str in stringList)
             {
-                ret += str + ",";
+                ret += wrapCharacter+   str+ wrapCharacter + ",";
             }
             // 맨 마지막 콤마는 제거하자.
             ret = ret.Remove(ret.Length - 1);
