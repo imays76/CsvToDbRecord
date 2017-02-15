@@ -15,6 +15,7 @@ namespace CsvToDbRecord
         public string m_DBName;
         public string m_tableName;
         public string m_connectionString;
+        public Exception m_error = null;
 
         public void Process()
         {
@@ -68,7 +69,7 @@ namespace CsvToDbRecord
             }
             catch (Exception e)
             {
-
+                m_error = e;
             }
         }
 
