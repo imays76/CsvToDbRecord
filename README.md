@@ -1,6 +1,4 @@
-# CsvToDbRecord
-
-Move your CSV documents to your DB tables.
+# Move your CSV documents to your DB tables.
 
 # How to use
 
