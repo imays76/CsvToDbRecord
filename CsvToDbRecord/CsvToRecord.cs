@@ -15,6 +15,10 @@ namespace CsvToDbRecord
         public string m_DBName;
         public string m_tableName;
         public string m_connectionString;
+        public string m_userID; // user id, password 모두 비어있으면 trusted_connection=yes로 대체된다.
+        public string m_password; 
+        public string m_serverName; // 예: .\sqlexpress
+        
         public Exception m_error = null;
 
         public void Process()
@@ -22,7 +26,16 @@ namespace CsvToDbRecord
             try
             {
                 // connection 
-                m_connectionString = $"driver={{SQL Server}};server=.;database={m_DBName};trusted_connection=yes";
+                string authPart;
+                if (m_userID == null || m_userID.Length==0 || m_password == null || m_password.Length == 0)
+                {
+                    authPart = "trusted_connection=yes;";
+                }
+                else
+                    authPart = $"user id={m_userID};password={m_password};";
+
+                m_connectionString = $"driver={{SQL Server}};server={m_serverName};database={m_DBName};{authPart}";
+
                 var c = new OdbcConnection(m_connectionString);
                 c.Open();
 

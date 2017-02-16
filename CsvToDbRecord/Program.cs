@@ -16,6 +16,9 @@ namespace CsvToDbRecord
             // yaml file을 열고, database name 등 사용자의 설정을 읽는다.
             string dbName;
             string CSVFilter;
+            string serverName;
+            string userID;
+            string password;
             try
             {
                 // look for yaml file
@@ -23,6 +26,9 @@ namespace CsvToDbRecord
                 var m = (YamlMapping)n[0];
                 dbName = ((YamlScalar)m["Database"]).Value;
                 CSVFilter = ((YamlScalar)m["CSV-Filter"]).Value;
+                serverName = ((YamlScalar)m["Server"]).Value;
+                userID = ((YamlScalar)m["User-ID"]).Value;
+                password= ((YamlScalar)m["Password"]).Value;
             }
             catch(Exception e)
             {
@@ -41,6 +47,9 @@ namespace CsvToDbRecord
 
                 v.m_DBName = dbName;
                 v.m_tableName = pureName;
+                v.m_serverName = serverName;
+                v.m_userID = userID;
+                v.m_password = password;
 
                 v.Process();
                 
