@@ -18,8 +18,11 @@ NOTE: You may use any field type.
 
 Prepare your config file `csv-to-db-config.yaml`. For example,
 ```
-Database:	"CsvToDbRecord-test" # Your database name
-CSV-Filter: "*.csv" # Your CSV file filter
+Server: ".\\"
+User-ID: ""
+Password: ""
+Database:	"CsvToDbRecord-test" # 레코드가 들어갈 DB의 데이터베이스 이름 
+CSV-Filter: "*.csv" # 행들을 읽을 CSV 파일 검색 필터
 ```
 
 Copy CsvToDbRecord.exe to the same folder and run it.
