@@ -28,3 +28,13 @@ CSV-Filter: "*.csv" # 행들을 읽을 CSV 파일 검색 필터
 
 Copy CsvToDbRecord.exe to the same folder and run it.
 The work result will be printed on your console window.
+
+# How to build
+Open Visual Studio or something, and build this.
+
+I have not built it with Mono, but I hope it works with it. Try by yourself with Linux or Mac.
+
+# What you can learn from this source code 
+
+* Accessing ODBC with .Net
+* Accessing YAML with https://yamlserializer.codeplex.com/ 
